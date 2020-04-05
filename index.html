@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <title>Clock</title>
+</head>
+
+<!-- Loads the clock time as soon as the body of the website loads-->
+<body onload= "clockTime()">
+    
+<br>
+    
+<div class="title">
+    Coder's Clock
+</div>
+    
+<br><br>
+    
+<div id="theTime"></div>
+    
+<br><br><br><br>
+
+<br><br>
+<div class="code">
+SET CODE TIME: <input type="time" id="code" name="code"> 
+</div>
+
+    
+<br><br><br>
+<div class="btns">
+<button type="button" id="submit" onclick="setAlarms()"> SET ALARMS</button>
+
+<button type="button"  id="reset" onclick="resetAlarms()"> RESET ALARMS </button>
+</div>
+    
+    
+<audio id="myAlarm" loop>
+    <source src="tornado-siren.mp3" type="audio/mp3">
+</audio>
+
+
+    
+<script type="text/javascript"></script>
+    
+<script>
+
+/*Function to set the time and updated*/
+function clockTime () {
+    //the variable "c" gets the new date and gets the hours, minutes and seconds
+    var c = new Date();
+    var h = c.getHours();
+    var m = c.getMinutes();
+    var s = c.getSeconds();
+    
+    
+    //if the hours are greater than 12 you subtract by 12 hours to not get military time
+    if (h > 12) {
+        h = h -12;
+    }
+    if (m < 10) {
+        m = "0" + m;
+    }
+    if(s < 10) {
+        s = "0" + s;
+    }
+    
+    
+    //writes into the element id in the html
+    document.getElementById('theTime').innerHTML = h + " : "
+ + m + " : " + s;
+    
+    
+    //the value only taking in the hours and months for comparison between the inputted time
+    document.getElementById('theTime').value = h + ":" + m;
+    
+    var code = document.getElementById('code').value;
+    var current = document.getElementById('theTime').value;
+    
+    
+    var t = setTimeout(clockTime, 1000);
+    
+       if (code == current) {
+         alarmSound.play();
+    }
+    
+        
+
+}  
+
+    
+//variable is outside because it is being used in the next 3 functions
+var alarmSound = document.getElementById("myAlarm");    
+
+
+//When the button is clicked, it calls this function to gather the values to compare and sound the alarm
+function setAlarms () {
+    var code = document.getElementById('code').value;
+    alert("ALARM SET FOR: " + code);
+}
+    
+    
+//When the rest button is clicked, it pauses the sound and gives an alert that the alarm has been reset
+function resetAlarms() {
+    
+    //pauses the alarm sound
+    alarmSound.pause();
+    //resets the page using the true boolean paraeter
+    window.location.reload(true);
+    alert("ALARMS RESET");
+}
+    
+    
+    
+</script>
+    
+
+</body>
+
+</html>
