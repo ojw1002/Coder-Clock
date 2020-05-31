@@ -3,4 +3,4 @@ This was a fun independent project made with HTML, CSS &amp; JavaScript. It upda
 JavaScript is written in script tags within the HTML file
 
 
-![UI Snip]
+![UI Snip](UI_snip.png)
